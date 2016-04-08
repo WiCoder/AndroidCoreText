@@ -2,7 +2,9 @@ package com.hyena.coretext;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.hyena.coretext.blocks.CYBlock;
@@ -49,6 +51,34 @@ public class CYView extends View {
 
     public void setBlocks(List<CYBlock> blocks) {
         this.mBlocks = blocks;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = MotionEventCompat.getActionMasked(event);
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+            {
+                event.getX();
+                event.getY();
+
+                break;
+            }
+            case MotionEvent.ACTION_MOVE:
+            {
+                break;
+            }
+            case MotionEvent.ACTION_UP:
+            {
+                break;
+            }
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_OUTSIDE:
+            {
+                break;
+            }
+        }
+        return super.onTouchEvent(event);
     }
 
     @Override
