@@ -52,6 +52,19 @@ public class CYLineBlock {
         }
     }
 
+    public int getMaxBlockHeightInLine(){
+        int maxHeight = 0;
+        if (mBlocks != null) {
+            for (int i = 0; i < mBlocks.size(); i++) {
+                CYBlock block = mBlocks.get(i);
+                if (block.getHeight() > maxHeight) {
+                    maxHeight = block.getHeight();
+                }
+            }
+        }
+        return maxHeight;
+    }
+
     private void syncBlocksHeight(){
         if (mBlocks != null) {
             for (int i = 0; i < mBlocks.size(); i++) {

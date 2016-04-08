@@ -21,9 +21,16 @@ public class CYHorizontalLayout implements CYLayout {
 
         List<CYPageBlock> pages = new ArrayList<CYPageBlock>();
         CYPageBlock page = new CYPageBlock();
+        int height = 0;
         if (lines != null) {
             for (int i = 0; i < lines.size(); i++) {
-                page.addLines(lines.get(i));
+                CYLineBlock line = lines.get(i);
+                int maxBlockHeight = line.getMaxBlockHeightInLine();
+                if (height + maxBlockHeight >  pageHeight) {
+                    page = new CYPageBlock();
+                    height += maxBlockHeight;
+                }
+                page.addLines(line);
             }
         }
         pages.add(page);
