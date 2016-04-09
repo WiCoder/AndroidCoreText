@@ -76,7 +76,8 @@ public class CYView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
 
         CYEventDispatcher.getEventDispatcher()
-                .requestLayout(false, getWidth(), getHeight());
+                .requestLayout(false, getWidth() - getPaddingLeft() - getPaddingRight()
+                        , getHeight() - getPaddingTop() - getPaddingBottom());
     }
 
     public void setLayout(CYLayout layout) {
@@ -132,6 +133,9 @@ public class CYView extends View {
         if (pages == null || pages.isEmpty())
             return;
 
+        canvas.save();
+        canvas.translate(getPaddingLeft(), getPaddingTop());
+
         for (int i = 0; i < pages.size(); i++) {
             CYPageBlock page = pages.get(i);
             List<CYLineBlock> lines = page.getLines();
@@ -142,5 +146,7 @@ public class CYView extends View {
                 }
             }
         }
+
+        canvas.restore();
     }
 }
