@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         CYView view = new CYView(this);
 
-        List<CYBlock> blocks = new ArrayList<>();
+        List<CYBlock> blocks = new ArrayList<CYBlock>();
         blocks.add(new CYTextBlock("这").setTextSize(50).setTextColor(Color.RED));
         blocks.add(new CYTextBlock("是一个最好的时代，这是一个最坏的时代；这是一个智慧的年代，这是一个愚蠢的年代；" +
                 "这是一个光明的季节，这是一个黑暗的季节；这是希望之春，这是失望之冬；人们面前应有尽有，人们面前一无所有；人们正踏向天堂之路，人们正走向地狱之门。").setTextSize(30));
