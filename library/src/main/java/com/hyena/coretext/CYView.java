@@ -26,9 +26,9 @@ public class CYView extends View {
 
     private CYLayout mLayout = new CYHorizontalLayout();
 
-    private List<CYPageBlock> pages = new ArrayList<>();
+    private List<CYPageBlock> pages = new ArrayList<CYPageBlock>();
 
-    private List<CYBlock> mBlocks = new ArrayList<>();
+    private List<CYBlock> mBlocks = new ArrayList<CYBlock>();
 
     public CYView(Context context) {
         super(context);

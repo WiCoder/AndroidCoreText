@@ -3,6 +3,7 @@ package com.hyena.coretext.layout;
 import android.graphics.Rect;
 
 import com.hyena.coretext.blocks.CYBlock;
+import com.hyena.coretext.blocks.CYBreakLineBlock;
 import com.hyena.coretext.blocks.CYPlaceHolderBlock;
 import com.hyena.coretext.blocks.CYLineBlock;
 import com.hyena.coretext.blocks.CYPageBlock;
@@ -70,6 +71,12 @@ public class CYHorizontalLayout implements CYLayout {
                     itemBlock.lineY = y;
                 }
                 line.addBlock(itemBlock);
+            } else if(itemBlock instanceof CYBreakLineBlock){
+                y += line.getLineHeight();
+                leftWidth = pageWidth;
+                line = new CYLineBlock();
+                lines.add(line);
+                linePlaceHolderBlocks = getLinePlaceHolderBlocks(placeHolderBlocks, y);
             } else {
                 List<CYBlock> subBlocks = itemBlock.getSubBlocks();
                 if (subBlocks != null) {
@@ -128,7 +135,7 @@ public class CYHorizontalLayout implements CYLayout {
         if (placeHolderBlocks == null || placeHolderBlocks.isEmpty()) {
             return null;
         }
-        List<CYPlaceHolderBlock> linePlaceHolderBlocks = new ArrayList<>();
+        List<CYPlaceHolderBlock> linePlaceHolderBlocks = new ArrayList<CYPlaceHolderBlock>();
         for (int i = 0; i < placeHolderBlocks.size(); i++) {
             CYPlaceHolderBlock block = placeHolderBlocks.get(i);
             if (y >= block.lineY && y <= block.lineY + block.getHeight()) {
