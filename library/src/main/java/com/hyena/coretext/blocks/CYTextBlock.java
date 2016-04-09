@@ -21,22 +21,36 @@ public class CYTextBlock extends CYBlock {
         mPaint.setTextSize(20);
     }
 
+    public CYTextBlock(String content){
+        super(content);
+        this.text = content;
+    }
+
     public CYTextBlock(String text, Paint paint){
+        super(null);
         this.text = text;
         this.mPaint = paint;
     }
 
     public CYTextBlock(String text, int fontSize){
+        super(null);
         this.text = text;
         mPaint.setTextSize(fontSize);
     }
 
-    public void setTextColor(int color){
+    public CYTextBlock setTextColor(int color){
         mPaint.setColor(color);
+        return this;
     }
 
-    public void setTypeFace(Typeface typeface){
+    public CYTextBlock setTypeFace(Typeface typeface){
         mPaint.setTypeface(typeface);
+        return this;
+    }
+
+    public CYTextBlock setTextSize(int fontSize){
+        mPaint.setTextSize(fontSize);
+        return this;
     }
 
     @Override

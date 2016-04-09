@@ -18,6 +18,10 @@ public abstract class CYBlock {
     public int lineY;
     public int lineHeight;
 
+    public CYBlock(String content){
+
+    }
+
     public abstract int getWidth();
 
     public abstract int getHeight();

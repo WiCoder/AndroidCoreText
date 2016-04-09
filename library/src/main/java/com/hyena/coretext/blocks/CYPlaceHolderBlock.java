@@ -15,11 +15,17 @@ public class CYPlaceHolderBlock extends CYBlock {
     private AlignStyle mAlignStyle;
     private int mWidth, mHeight;
 
+    public CYPlaceHolderBlock(String content){
+        super(content);
+    }
+
     public CYPlaceHolderBlock(AlignStyle style){
+        super(null);
         this.mAlignStyle = style;
     }
 
     public CYPlaceHolderBlock(int width, int height, AlignStyle style){
+        super(null);
         this.mWidth = width;
         this.mHeight = height;
         this.mAlignStyle = style;
@@ -27,6 +33,10 @@ public class CYPlaceHolderBlock extends CYBlock {
 
     public AlignStyle getAlignStyle(){
         return mAlignStyle;
+    }
+    public CYPlaceHolderBlock setAlignStyle(AlignStyle style){
+        this.mAlignStyle = style;
+        return this;
     }
 
     public void setWidth(int width){
