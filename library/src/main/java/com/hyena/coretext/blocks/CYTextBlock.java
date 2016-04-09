@@ -32,12 +32,6 @@ public class CYTextBlock extends CYBlock {
         this.mPaint = paint;
     }
 
-    public CYTextBlock(String text, int fontSize){
-        super(null);
-        this.text = text;
-        mPaint.setTextSize(fontSize);
-    }
-
     public CYTextBlock setTextColor(int color){
         mPaint.setColor(color);
         return this;

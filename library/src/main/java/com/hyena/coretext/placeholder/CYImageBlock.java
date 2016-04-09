@@ -18,11 +18,6 @@ public class CYImageBlock extends CYPlaceHolderBlock {
         super(content);
     }
 
-    public CYImageBlock(Context context, int resId, AlignStyle style) {
-        super(style);
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), resId);
-    }
-
     public CYImageBlock setResId(Context context, int resId){
         mBitmap = BitmapFactory.decodeResource(context.getResources(), resId);
         return this;

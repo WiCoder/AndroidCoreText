@@ -19,18 +19,6 @@ public class CYPlaceHolderBlock extends CYBlock {
         super(content);
     }
 
-    public CYPlaceHolderBlock(AlignStyle style){
-        super(null);
-        this.mAlignStyle = style;
-    }
-
-    public CYPlaceHolderBlock(int width, int height, AlignStyle style){
-        super(null);
-        this.mWidth = width;
-        this.mHeight = height;
-        this.mAlignStyle = style;
-    }
-
     public AlignStyle getAlignStyle(){
         return mAlignStyle;
     }
@@ -39,12 +27,14 @@ public class CYPlaceHolderBlock extends CYBlock {
         return this;
     }
 
-    public void setWidth(int width){
+    public CYPlaceHolderBlock setWidth(int width){
         this.mWidth = width;
+        return this;
     }
 
-    public void setHeight(int height){
+    public CYPlaceHolderBlock setHeight(int height){
         this.mHeight = height;
+        return this;
     }
 
     @Override
