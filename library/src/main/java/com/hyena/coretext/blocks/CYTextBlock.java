@@ -76,7 +76,7 @@ public class CYTextBlock extends CYBlock {
     @Override
     public int getHeight() {
         Paint.FontMetrics fm = mPaint.getFontMetrics();
-        return (int) Math.ceil(fm.descent - fm.top) + 12;
+        return (int) Math.ceil(fm.descent - fm.top) + 8;
     }
 
     @Override
