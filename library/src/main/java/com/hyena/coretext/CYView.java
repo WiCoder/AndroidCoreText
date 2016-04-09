@@ -10,8 +10,11 @@ import android.view.View;
 import com.hyena.coretext.blocks.CYBlock;
 import com.hyena.coretext.blocks.CYLineBlock;
 import com.hyena.coretext.blocks.CYPageBlock;
+import com.hyena.coretext.event.CYEventDispatcher;
+import com.hyena.coretext.event.CYLayoutEventListener;
 import com.hyena.coretext.layout.CYHorizontalLayout;
 import com.hyena.coretext.layout.CYLayout;
+import com.hyena.coretext.utils.CYBlockUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,23 +32,54 @@ public class CYView extends View {
 
     public CYView(Context context) {
         super(context);
+        init();
     }
 
     public CYView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public CYView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
+
+    private void init() {
+        CYEventDispatcher.getEventDispatcher().addLayoutEventListener(mLayoutEventListener);
+    }
+
+    public void release() {
+        CYEventDispatcher.getEventDispatcher().removeLayoutEventListener(mLayoutEventListener);
+    }
+
+    private CYLayoutEventListener mLayoutEventListener = new CYLayoutEventListener() {
+
+        @Override
+        public void onLayout(int width, int height) {
+            if (mBlocks == null || mBlocks.isEmpty())
+                return;
+
+            pages = mLayout.parsePage(mBlocks, width, height);
+            postInvalidate();
+        }
+
+        @Override
+        public void onInvalidate() {
+            postInvalidate();
+        }
+
+    };
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        pages = mLayout.parsePage(mBlocks, getWidth(), getHeight());
+
+        CYEventDispatcher.getEventDispatcher()
+                .requestLayout(false, getWidth(), getHeight());
     }
 
-    public void setLayout(CYLayout layout){
+    public void setLayout(CYLayout layout) {
         this.mLayout = layout;
     }
 
@@ -53,32 +87,42 @@ public class CYView extends View {
         this.mBlocks = blocks;
     }
 
+    private CYBlock mTouchBlock;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = MotionEventCompat.getActionMasked(event);
         switch (action) {
-            case MotionEvent.ACTION_DOWN:
-            {
-                event.getX();
-                event.getY();
+            case MotionEvent.ACTION_DOWN: {
+                CYBlock touchBlock = CYBlockUtils.findBlockByPosition(mBlocks,
+                        (int) event.getX(), (int) event.getY());
+                if (touchBlock != mTouchBlock) {
+                    if (mTouchBlock != null)
+                        mTouchBlock.setFocus(false);
 
+                    mTouchBlock = touchBlock;
+
+                    if (mTouchBlock != null)
+                        mTouchBlock.setFocus(true);
+                }
+                if (mTouchBlock != null) {
+                    mTouchBlock.onTouchEvent(action, event.getX() - mTouchBlock.x,
+                            event.getY() - mTouchBlock.lineY);
+                }
                 break;
             }
             case MotionEvent.ACTION_MOVE:
-            {
-                break;
-            }
             case MotionEvent.ACTION_UP:
-            {
-                break;
-            }
             case MotionEvent.ACTION_CANCEL:
-            case MotionEvent.ACTION_OUTSIDE:
-            {
+            case MotionEvent.ACTION_OUTSIDE: {
+                if (mTouchBlock != null) {
+                    mTouchBlock.onTouchEvent(action, event.getX() - mTouchBlock.x,
+                            event.getY() - mTouchBlock.lineY);
+                }
                 break;
             }
         }
-        return super.onTouchEvent(event);
+        return true;
     }
 
     @Override

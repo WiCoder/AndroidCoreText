@@ -18,6 +18,6 @@ public interface CYLayout {
      * @param pageHeight pageHeight
      * @return pages
      */
-    public List<CYPageBlock> parsePage(List<CYBlock> blocks, int pageWidth, int pageHeight);
+    List<CYPageBlock> parsePage(List<CYBlock> blocks, int pageWidth, int pageHeight);
 
 }

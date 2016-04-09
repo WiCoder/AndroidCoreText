@@ -22,13 +22,18 @@ public class CYHorizontalLayout implements CYLayout {
         List<CYPageBlock> pages = new ArrayList<CYPageBlock>();
         CYPageBlock page = new CYPageBlock();
         int height = 0;
+        int y = 0;
         if (lines != null) {
             for (int i = 0; i < lines.size(); i++) {
                 CYLineBlock line = lines.get(i);
                 int maxBlockHeight = line.getMaxBlockHeightInLine();
-                if (height + maxBlockHeight >  pageHeight) {
+                if (height + maxBlockHeight > pageHeight) {
                     page = new CYPageBlock();
-                    height += maxBlockHeight;
+                    height = 0;
+                    y = 0;
+                } else {
+                    line.updateLineY(y);
+                    y += line.getLineHeight();
                 }
                 page.addLines(line);
             }
@@ -47,7 +52,7 @@ public class CYHorizontalLayout implements CYLayout {
 
         List<CYPlaceHolderBlock> linePlaceHolderBlocks = new ArrayList<CYPlaceHolderBlock>();
         int y = 0;
-        for (int i=0; i< blocks.size(); i++) {
+        for (int i = 0; i < blocks.size(); i++) {
             CYBlock itemBlock = blocks.get(i);
             if (itemBlock instanceof CYPlaceHolderBlock) {
                 placeHolderBlocks.add((CYPlaceHolderBlock) itemBlock);
@@ -94,7 +99,7 @@ public class CYHorizontalLayout implements CYLayout {
                             linePlaceHolderBlocks = getLinePlaceHolderBlocks(placeHolderBlocks, y);
                             y += line.getLineHeight();
                             CYBlock hitCell;
-                            while ((hitCell = getHitCell(linePlaceHolderBlocks, pageWidth - leftWidth,y,
+                            while ((hitCell = getHitCell(linePlaceHolderBlocks, pageWidth - leftWidth, y,
                                     block.getWidth(), block.getHeight())) != null) {
                                 leftWidth = leftWidth - hitCell.getWidth() - (hitCell.x - (pageWidth - leftWidth));
                             }
@@ -134,14 +139,14 @@ public class CYHorizontalLayout implements CYLayout {
     }
 
     private CYPlaceHolderBlock getHitCell(List<CYPlaceHolderBlock> linePlaceHolderBlocks
-            , int x, int y, int width, int height){
+            , int x, int y, int width, int height) {
         if (linePlaceHolderBlocks == null || linePlaceHolderBlocks.isEmpty())
             return null;
         for (int i = 0; i < linePlaceHolderBlocks.size(); i++) {
             CYPlaceHolderBlock cell = linePlaceHolderBlocks.get(i);
 
             if (new Rect(cell.x, cell.lineY, cell.x + cell.getWidth(),
-                    cell.lineY + cell.getHeight()).intersect(new Rect(x, y, x+ width, y + height))) {
+                    cell.lineY + cell.getHeight()).intersect(new Rect(x, y, x + width, y + height))) {
                 return cell;
             }
 

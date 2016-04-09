@@ -2,6 +2,9 @@ package com.hyena.coretext.blocks;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
+
+import com.hyena.coretext.event.CYEventDispatcher;
 
 import java.util.List;
 
@@ -25,7 +28,27 @@ public abstract class CYBlock {
         return null;
     }
 
-    public Rect getRect(){
+    public Rect getRect() {
         return new Rect(x, lineY, x + getWidth(), lineY + getHeight());
+    }
+
+    public void onTouchEvent(int event, float x, float y) {
+        Log.v("yangzc", "onEvent: " + event);
+    }
+
+    public void setFocus(boolean focus) {
+        Log.v("yangzc", "rect: " + getRect().toString() + ", focus: " + focus);
+    }
+
+    public void requestLayout() {
+        CYEventDispatcher.getEventDispatcher().requestLayout();
+    }
+
+    public void requestLayout(boolean force) {
+        CYEventDispatcher.getEventDispatcher().requestLayout(force);
+    }
+
+    public void postInvalidate() {
+        CYEventDispatcher.getEventDispatcher().postInvalidate();
     }
 }

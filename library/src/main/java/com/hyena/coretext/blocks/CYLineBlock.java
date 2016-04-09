@@ -36,6 +36,14 @@ public class CYLineBlock {
         syncBlocksHeight();
     }
 
+    public void updateLineY(int lineY){
+        if (mBlocks != null) {
+            for (int i = 0; i < mBlocks.size(); i++) {
+                mBlocks.get(i).lineY = lineY;
+            }
+        }
+    }
+
     private void measureLineHeight(){
         if (mBlocks != null) {
             mLineHeight = 0;
