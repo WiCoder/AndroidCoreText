@@ -12,7 +12,7 @@ import com.hyena.coretext.blocks.CYBreakLineBlock;
 import com.hyena.coretext.blocks.CYPlaceHolderBlock;
 import com.hyena.coretext.blocks.CYTextBlock;
 import com.hyena.coretext.layout.CYHorizontalLayout;
-import com.hyena.coretext.placeholder.CYImageBlock;
+import com.hyena.coretext.blocks.CYImageBlock;
 
 import java.util.ArrayList;
 import java.util.List;

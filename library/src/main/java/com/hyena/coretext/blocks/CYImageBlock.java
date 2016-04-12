@@ -1,11 +1,9 @@
-package com.hyena.coretext.placeholder;
+package com.hyena.coretext.blocks;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-
-import com.hyena.coretext.blocks.CYPlaceHolderBlock;
 
 /**
  * Created by yangzc on 16/4/8.
