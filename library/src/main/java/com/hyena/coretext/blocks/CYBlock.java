@@ -17,6 +17,7 @@ public abstract class CYBlock {
     //Top left
     public int lineY;
     public int lineHeight;
+    private boolean mForcus = false;
 
     public CYBlock(String content){
 
@@ -41,7 +42,12 @@ public abstract class CYBlock {
     }
 
     public void setFocus(boolean focus) {
+        mForcus = focus;
         Log.v("yangzc", "rect: " + getRect().toString() + ", focus: " + focus);
+    }
+
+    public boolean isFocus(){
+        return mForcus;
     }
 
     public void requestLayout() {
