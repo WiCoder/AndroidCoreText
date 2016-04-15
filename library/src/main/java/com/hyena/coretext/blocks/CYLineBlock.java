@@ -57,6 +57,9 @@ public class CYLineBlock {
                     }
                 }
             }
+            if (mLineHeight <= 0) {
+                mLineHeight = getMaxBlockHeightInLine();
+            }
         }
     }
 

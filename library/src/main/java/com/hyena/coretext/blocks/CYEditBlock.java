@@ -3,6 +3,7 @@ package com.hyena.coretext.blocks;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -63,6 +64,21 @@ public class CYEditBlock extends CYPlaceHolderBlock {
     }
 
     @Override
+    public CYEditBlock setWidth(int width) {
+        return (CYEditBlock) super.setWidth(width);
+    }
+
+    @Override
+    public CYEditBlock setHeight(int height) {
+        return (CYEditBlock) super.setHeight(height);
+    }
+
+    @Override
+    public CYEditBlock setAlignStyle(AlignStyle style) {
+        return (CYEditBlock) super.setAlignStyle(style);
+    }
+
+    @Override
     public void setFocus(boolean focus) {
         super.setFocus(focus);
         if (focus) {
@@ -75,10 +91,12 @@ public class CYEditBlock extends CYPlaceHolderBlock {
         }
     }
 
+    private Rect mRect = new Rect();
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
         // 绘制外边框
-        canvas.drawRect(getRect(), mBgPaint);
+        mRect.set(getRect().left, getRect().top + 10, getRect().right, getRect().bottom);
+        canvas.drawRect(mRect, mBgPaint);
     }
 }
